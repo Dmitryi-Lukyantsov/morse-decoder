@@ -37,8 +37,43 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
+
 function decode(expr) {
-    // write your solution here
+    let arrDotDash = expr.split('**********');
+    let res = [];
+    let messege = '';
+
+    arrDotDash.map((item) => {
+        let str = '';
+        
+        for (let i = 0; i < item.length; i += 2 ) {
+            if (item[i] + item[i + 1] === '10') {
+                str += '.';
+            };
+            if (item[i] + item[i + 1] === '11') {
+                str += '-';
+            };
+            if (item[i] + item[i + 1] === '00') {
+                str += ' ';
+            };
+        }
+        console.log(str)
+        res.push(str.split(' '))
+    });
+    console.log(res)
+    res.forEach(item => {
+        if (messege.length > 0) {
+            messege += ' ';
+        }
+
+        for (let i = 0; i < item.length; i++) {
+            if (MORSE_TABLE[item[i]]) {
+                messege += MORSE_TABLE[item[i]]
+            };
+        }
+    })
+    
+    return messege
 }
 
 module.exports = {
