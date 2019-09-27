@@ -37,8 +37,6 @@ const MORSE_TABLE = {
     '-----':  '0',
 };
 
-
-
 function decode(expr) {
     let res = [];
     let morA = [];
@@ -50,7 +48,6 @@ function decode(expr) {
         }
     });
 
-    console.log(res)
     res.forEach(item => {
         let str = '';
         for (let i = 0; i < item.length; i += 2) {
@@ -59,21 +56,27 @@ function decode(expr) {
             };
             if (item[i] + item[i + 1] === '11') {
                 str += '-';
-            }
-            if (item[i] + item[i + 9] === '**********') {
-                i += 10;
-                str =+ ' ';
+            };
+            if (item[i]  === '*') {
+                str += '*';
+                break;
             }
         }
         morA.push(str)
     })
-    console.log(morA)
+
     morA.forEach(item => {
-        messege += MORSE_TABLE[item];
+        if (!MORSE_TABLE[item]) {
+            messege += ' ';
+        }
+        if (MORSE_TABLE[item]) {
+            messege += MORSE_TABLE[item];
+        }
     })
-    
+
     return messege
 }
+
 
 module.exports = {
     decode
