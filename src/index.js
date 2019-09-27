@@ -38,39 +38,38 @@ const MORSE_TABLE = {
 };
 
 
-function decode(expr) {
-    let arrDotDash = expr.split('**********');
-    let res = [];
-    let messege = '';
 
-    arrDotDash.map((item) => {
+function decode(expr) {
+    let res = [];
+    let morA = [];
+    let messege = '';
+    
+    expr.split().forEach((item) => {
+        for (let i = 0; i < item.length; i += 10 ) {
+            res.push(item.slice(i, i + 10))
+        }
+    });
+
+    console.log(res)
+    res.forEach(item => {
         let str = '';
-        
-        for (let i = 0; i < item.length; i += 2 ) {
+        for (let i = 0; i < item.length; i += 2) {
             if (item[i] + item[i + 1] === '10') {
                 str += '.';
             };
             if (item[i] + item[i + 1] === '11') {
                 str += '-';
-            };
-            if (item[i] + item[i + 1] === '00') {
-                str += ' ';
-            };
+            }
+            if (item[i] + item[i + 9] === '**********') {
+                i += 10;
+                str =+ ' ';
+            }
         }
-        console.log(str)
-        res.push(str.split(' '))
-    });
-    console.log(res)
-    res.forEach(item => {
-        if (messege.length > 0) {
-            messege += ' ';
-        }
-
-        for (let i = 0; i < item.length; i++) {
-            if (MORSE_TABLE[item[i]]) {
-                messege += MORSE_TABLE[item[i]]
-            };
-        }
+        morA.push(str)
+    })
+    console.log(morA)
+    morA.forEach(item => {
+        messege += MORSE_TABLE[item];
     })
     
     return messege
